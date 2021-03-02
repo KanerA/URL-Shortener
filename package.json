@@ -1,7 +1,7 @@
 {
   "name": "shorturl",
   "version": "0.0.3",
-  "description": "API project for freeCodeCamp",
+  "description": "Create a shorter URL for everyone",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
