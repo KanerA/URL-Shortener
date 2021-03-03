@@ -6,6 +6,7 @@ const { urlencoded } = require('body-parser');
 const DB = require('./dataBase');
 const { checkIdExist } = require('./utils');
 const { checkIdValid } = require('./utils');
+const { urlExist } = require('./utils');
 
 app.use(cors());
 app.use("/public", express.static(`./public`));
@@ -17,6 +18,6 @@ app.get("/", (req, res) => {
 
 app.get('/:id', checkIdValid, checkIdExist, DB.redirectUrl);
 
-app.post('/api/shorturl/new', DB.addURL);
+app.post('/api/shorturl/new', urlExist,  DB.addURL);
 
 module.exports = app;

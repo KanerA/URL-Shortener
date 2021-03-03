@@ -20,4 +20,19 @@ const checkIdExist = async (req, res, next) => {
     next();
 }
 
-module.exports = { checkIdExist, checkIdValid };
+const urlExist = async (req, res, next) => {
+    const { url } = req.body;
+    console.log(url);
+    await DB.readData();
+    for(let savedUrl of DB.urls){
+        if(url === savedUrl.originalUrl){
+            return res.json({
+                message: "URL already shortened",
+                shortUrl: savedUrl.shortUrlId
+            })
+        }
+    }
+    next();
+}
+
+module.exports = { checkIdExist, checkIdValid, urlExist };
