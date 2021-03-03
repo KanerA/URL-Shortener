@@ -1,6 +1,6 @@
 const DB = require("./dataBase");
 
-const checkId = async (req, res, next) => {
+const checkIdExist = async (req, res, next) => {
     const { id } = req.params;
     await DB.readData();
     let counter = 0;
@@ -13,4 +13,4 @@ const checkId = async (req, res, next) => {
     next();
 }
 
-module.exports = checkId;
+module.exports = checkIdExist;
