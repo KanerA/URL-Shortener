@@ -4,7 +4,8 @@ const cors = require("cors");
 const app = express();
 const { urlencoded } = require('body-parser');
 const DB = require('./dataBase');
-const checkIdExist = require('./utils');
+const { checkIdExist } = require('./utils');
+const { checkIdValid } = require('./utils');
 
 app.use(cors());
 app.use("/public", express.static(`./public`));
@@ -14,7 +15,7 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
 });
 
-app.get('/:id', checkIdExist, DB.redirectUrl);
+app.get('/:id', checkIdValid, checkIdExist, DB.redirectUrl);
 
 app.post('/api/shorturl/new', DB.addURL);
 

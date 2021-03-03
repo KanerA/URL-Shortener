@@ -1,4 +1,11 @@
+const shortid = require("shortid");
 const DB = require("./dataBase");
+
+const checkIdValid = (req, res, next) => {
+    const { id } = req.params;
+    if(!shortid.isValid(id)) res.status(400).json({message: "Invalid Bin Id provided"})
+    next();
+}
 
 const checkIdExist = async (req, res, next) => {
     const { id } = req.params;
@@ -13,4 +20,4 @@ const checkIdExist = async (req, res, next) => {
     next();
 }
 
-module.exports = checkIdExist;
+module.exports = { checkIdExist, checkIdValid };
