@@ -51,6 +51,26 @@ class DB {
             console.log(e);
         }
     }
+
+    static async getIdStatistics(req, res){
+        const { id } = req.params;
+        try{
+            await DB.readData();
+            DB.urls.forEach(async (value) => {
+                if(id === value.shortUrlId){
+                    const stats = {
+                        creationDate: value.creationDate,
+                        redirectCount: value.redirectCount,
+                        originalUrl: value.originalUrl,
+                        shortURL: `http://localhost:3000/api/${value.shortUrlId}`
+                    }
+                    res.render('statistics_id', stats)
+                }
+            })
+        } catch(e){
+            console.log(e);
+        }
+    }
 }
 
 module.exports = DB;
