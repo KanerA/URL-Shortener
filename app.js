@@ -13,4 +13,6 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
 });
 
+app.post('/api/shorturl/new', DB.addURL);
+
 module.exports = app;
