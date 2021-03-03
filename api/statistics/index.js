@@ -1,10 +1,10 @@
 const { Router } = require("express");
 
-const statistic = Router();
+const statistics = Router();
 
 
-statistic.use("*", (req, res) => {
+statistics.use("*", (req, res) => {
   res.status(404).send(({"message": "Page Not Found"}));
 });
 
-module.exports = statistic;
+module.exports = statistics;
