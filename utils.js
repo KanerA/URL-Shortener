@@ -42,4 +42,11 @@ const urlExist = async (req, res, next) => {
     }
 }
 
+const checkIfBlank = (req, res, next) => {
+    console.log(req);
+    const { url } = req.body;
+    if(url === '') return res.json({message: "can't send empty url input"})
+    next();
+}
+
 module.exports = { checkIdExist, checkIdValid, urlExist, checkIfBlank };
