@@ -6,11 +6,11 @@ class DB{
     static urls = [];
     
     // add the url given to the database
-    static async addURL({ body }){
+    static async addURL(res){
         const data = {
             creationDate: Date.now(),
             redirectCount: 0,
-            originalUrl: body.url,
+            originalUrl: res.body.url,
             shortUrlId: shortId.generate()
         }
         try{
