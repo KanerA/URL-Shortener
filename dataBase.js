@@ -19,7 +19,7 @@ class DB {
             await fsPromises.writeFile(`${dir}/data.json`, JSON.stringify(DB.urls, null, 4));
             res.status(200).json({
                 message: "short url created",
-                shortUrl: `http://localhost:3000/${data.shortUrlId}`
+                shortUrl: `http://localhost:3000/api/${data.shortUrlId}`
             })
         } catch(e) {
             console.log(e);
@@ -28,7 +28,7 @@ class DB {
 
     // redirect with the short url
     static async redirectUrl(req, res){
-        const id = req.params.id;
+        const { id } = req.params;
         await DB.readData();
         DB.urls.forEach(async (value) => {
             if(id === value.shortUrlId){
