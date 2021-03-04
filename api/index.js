@@ -11,4 +11,8 @@ api.use("/shorturl", shorturl);
 api.use("/statistics", statistics);
 api.get('/:id', checkIdValid, checkIdExist, DB.redirectUrl);
 
+api.use("*", (req, res) => {
+    res.status(404).send(({"message": "Page Not Found"}));
+  });
+
 module.exports = api;
