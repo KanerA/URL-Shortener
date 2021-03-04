@@ -4,8 +4,14 @@ html
         title URL Statistics 
     body 
         h1 Statistics 
-        ul 
-            li #{creationDate}
-            li #{redirectCount}
-            li #{originalUrl}
-            li #{shortURL}
+        table 
+            tr
+                th Creation Date 
+                th Redirect Count 
+                th Original URL 
+                th Short URL Version 
+            tr
+                td #{creationDate}
+                td #{redirectCount}
+                td #{originalUrl}
+                td #{shortURL}
