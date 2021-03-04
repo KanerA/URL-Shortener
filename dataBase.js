@@ -33,7 +33,7 @@ class DB {
         DB.urls.forEach(async (value) => {
             if(id === value.shortUrlId){
                 value.redirectCount++;
-                res.redirect(value.originalUrl);
+                res.status(302).redirect(value.originalUrl);
             }
         })
         await fsPromises.writeFile(`${dir}/data.json`, JSON.stringify(DB.urls, null, 4));
@@ -52,6 +52,7 @@ class DB {
         }
     }
 
+    // get the statistics of a specified id
     static async getIdStatistics(req, res){
         const { id } = req.params;
         try{
