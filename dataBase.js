@@ -1,6 +1,7 @@
 const fsPromises = require('fs').promises;
 const shortId = require('shortid');
 const dir = process.env.NODE_ENV === 'test' ? './test':'./data';
+const axios = require('axios').default
 
 class DB {
     static urls = [];
@@ -16,7 +17,7 @@ class DB {
         try{
             await DB.readData();
             DB.urls.push(data);
-            await fsPromises.writeFile(`${dir}/data.json`, JSON.stringify(DB.urls, null, 4));
+            await axios.post('http://localhost:3002/v3/b', { data });
             res.status(200).json({
                 message: "short url created",
                 shortUrl: `http://localhost:3000/api/${data.shortUrlId}`
