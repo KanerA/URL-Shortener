@@ -2,7 +2,6 @@ const { Router } = require("express");
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const app = express();
 const { urlencoded } = require('body-parser');
 const DB = require('../../dataBase');
 const { urlExist } = require('../../utils');
