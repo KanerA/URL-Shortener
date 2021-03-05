@@ -1,18 +1,14 @@
+require("dotenv").config();
 const express = require("express");
-const api = require("./api");
+const cors = require("cors");
 const app = express();
-const path = require('path');
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.use(cors());
 
-app.use("/api", api);
+app.use("/public", express.static(`./public`));
 
 app.get("/", (req, res) => {
-  res.render('index');
+  res.sendFile(__dirname + "/views/index.html");
 });
 
-
-
 module.exports = app;
-

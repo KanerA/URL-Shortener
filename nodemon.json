@@ -2,9 +2,7 @@
   "restartable": "rs",
   "ignore": [
       ".git",
-      "node_modules/**/node_modules",
-      "test",
-      "data"
+      "node_modules/**/node_modules"
   ],
   "verbose": true,
   "env": {
