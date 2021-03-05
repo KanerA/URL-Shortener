@@ -19,4 +19,10 @@ describe("test post", () => {
         expect(res.status).toBe(200);
         expect(res.body.originalUrl).toEqual(URL.url);
     });
+
+    test('If an error message returns when url already exists', async () => {
+        const res = await request(app).post('/api/shorturl').type('form').send(URL);
+        expect(res.status).toBe(200);
+        expect(res.body.message).toEqual(expectedMessage);
+    });
 });
