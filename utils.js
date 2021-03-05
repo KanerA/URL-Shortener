@@ -3,7 +3,7 @@ const DB = require("./dataBase");
 
 const checkIdValid = (req, res, next) => {
     const { id } = req.params;
-    if(!shortid.isValid(id)) return res.status(400).json({message: "Invalid Bin Id provided"})
+    if(!shortid.isValid(id)) return res.status(400).json({message: "Invalid Id provided"})
     next();
 }
 
