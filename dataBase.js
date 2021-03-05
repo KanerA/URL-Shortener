@@ -18,7 +18,10 @@ class DB {
             await DB.readData();
             DB.urls.push(data);
             await fsPromises.writeFile(`${dir}/data.json`, JSON.stringify(DB.urls, null, 4));
-            res.status(200).render('shortUrl', data)
+            res
+            .status(200)
+            .json(data)
+            .render('shortUrl', data)
         } catch(e) {
             console.log(e);
         }
