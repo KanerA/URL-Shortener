@@ -18,10 +18,8 @@ class DB {
             await DB.readData();
             DB.urls.push(data);
             await fsPromises.writeFile(`${dir}/data.json`, JSON.stringify(DB.urls, null, 4));
-            res.status(200).json({
-                message: "short url created",
-                shortUrl: `http://localhost:3000/api/${data.shortUrlId}`
-            })
+            data.shortUrl = `http://localhost:3000/api/${data.shortUrlId}`;
+            res.status(200).render('shortUrl', data)
         } catch(e) {
             console.log(e);
         }
