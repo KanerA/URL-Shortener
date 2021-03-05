@@ -13,6 +13,10 @@ const URLExist = {
 
 const expectedMessage = "URL already shortened";
 
+beforeAll(() => {
+    fs.writeFileSync(`./${dir}/data.json`, "[]");
+});
+
 describe("test post", () => {
     it("should save the url in a database", async () => {
         const res = await request(app).post('/api/shorturl').type('form').send(URL);
