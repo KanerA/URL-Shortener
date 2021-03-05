@@ -34,4 +34,9 @@ describe("test post", () => {
         expect(res.status).toBe(200);
         expect(res.body.message).toEqual(expectedMessage);
     });
+
+    test('If an error message return when url field is empty', async () => {
+        const res = await request(app).post('/api/shorturl').type('form').send({url: ''});
+        expect(res.body).toEqual({message: "can't send empty url input"});
+    });
 });
