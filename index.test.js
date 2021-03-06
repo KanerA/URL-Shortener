@@ -18,7 +18,7 @@ beforeAll(() => {
     fs.writeFileSync(`./${dir}/data.json`, "[]");
 });
 
-describe("test post", () => {
+describe("Test post", () => {
     it("should save the url in a database", async () => {
         await DB.readData();
         const expectedLength = DB.urls.length + 1;
@@ -38,5 +38,15 @@ describe("test post", () => {
     test('If an error message return when url field is empty', async () => {
         const res = await request(app).post('/api/shorturl').type('form').send({url: ''});
         expect(res.body).toEqual({message: "can't send empty url input"});
+    });
+});
+
+describe("Test get with ID", () => {
+    it("Should redirect to the original URL", async () => {
+        const postRes = await request(app).post("/api/shorturl").type("form").send(URLExist); // create a temporary url in the db
+        const { body: { shortUrlId } } = postRes; // using the shorturl of the new object to make a get request
+        const res = await request(app).get(`/api/${shortUrlId}`);
+        expect(res.status).toBe(302);
+        expect(res.redirect).toBe(true);
     });
 });
