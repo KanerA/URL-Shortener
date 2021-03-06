@@ -3,7 +3,7 @@ const DB = require("./dataBase");
 
 const checkIdValid = (req, res, next) => {
     const { id } = req.params;
-    if(!shortid.isValid(id)) return res.status(400).json({message: "Invalid Id provided"})
+    if(!shortid.isValid(id)) return res.status(400).render('error', {error: 'Invalid ID'})
     next();
 }
 
@@ -17,7 +17,7 @@ const checkIdExist = async (req, res, next) => {
                 counter++;
             }
         }
-        if(counter === DB.urls.length) return res.status(404).json({message: "id not found"})
+        if(counter === DB.urls.length) return res.status(404).render('error', {error: '404 ID Not Found'})
         next();
     } catch(e){
         console.log(e);
@@ -32,10 +32,10 @@ const urlExist = async (req, res, next) => {
             if(url === savedUrl.originalUrl){
                 return res
                 .status(200)
-                .json({
-                    message: "URL already shortened",
-                    shortUrl: savedUrl.shortUrlId
-                })
+                .render('error', {
+                    error: 'URL already shortened',
+                    shortUrl: `http://${req.get('host')}/api/${savedUrl.shortUrlId}`
+                });
             }
         }
         next();
