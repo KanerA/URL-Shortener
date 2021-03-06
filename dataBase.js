@@ -66,7 +66,9 @@ class DB {
                         originalUrl: value.originalUrl,
                         shortURL: `http://localhost:3000/api/${value.shortUrlId}`
                     }
-                    res.render('statistics_id', stats)
+                    res
+                    .status(200)
+                    .render('statistics_id', stats)
                 }
             })
         } catch(e){
