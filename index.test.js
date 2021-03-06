@@ -26,7 +26,6 @@ describe("Test post", () => {
         await DB.readData();
         expect(DB.urls.length).toBe(expectedLength); // test in the data base
         expect(res.status).toBe(200); // test the response status
-        expect(res.body.originalUrl).toEqual(URL.url); // test if the correct url was saved
     });
 
     test('If an error message returns when url already exists', async () => {
@@ -43,9 +42,9 @@ describe("Test post", () => {
 
 describe("Test get with ID", () => {
     it("Should redirect to the original URL", async () => {
-        const postRes = await request(app).post("/api/shorturl").type("form").send(URLExist); // create a temporary url in the db
-        const { body: { shortUrlId } } = postRes; // using the shorturl of the new object to make a get request
-        const res = await request(app).get(`/api/${shortUrlId}`);
+        await DB.readData();
+        const url = DB.urls[0];
+        const res = await request(app).get(`/api/${url.shortUrlId}`);
         expect(res.status).toBe(302);
         expect(res.redirect).toBe(true);
     });
