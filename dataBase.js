@@ -20,8 +20,7 @@ class DB {
             await fsPromises.writeFile(`${dir}/data.json`, JSON.stringify(DB.urls, null, 4));
             res
             .status(200)
-            .json(data)
-            .render('shortUrl', data)
+            .render('shortUrl', { URL: `http://${req.get('host')}/api/${data.shortUrlId}`});
         } catch(e) {
             console.log(e);
         }
