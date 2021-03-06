@@ -7,6 +7,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use("/api", api);
+app.use("/public", express.static(`./public`));
 
 app.get("/", (req, res) => {
   res.render('index');
