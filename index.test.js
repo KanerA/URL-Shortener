@@ -50,3 +50,17 @@ describe("Test get with ID", () => {
         expect(res.redirect).toBe(true);
     });
 });
+
+describe("Test statistics by ID", () => {
+    it("Should show the statistics for the given shortUrl ID", async () => {
+        await DB.readData();
+        const url = DB.urls[0];
+        const res = await request(app).get(`/api/statistics/${url.shortUrlId}`);
+        const resHtml = res.text;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(resHtml, 'text/html');
+        const ogUrl = doc.getElementById('originalUrl');
+        expect(ogUrl.innerHTML).toBe(url.originalUrl);
+        expect(res.status).toBe(200);
+    });
+});
