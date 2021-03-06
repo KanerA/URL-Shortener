@@ -30,8 +30,12 @@ describe("Test post", () => {
 
     test('If an error message returns when url already exists', async () => {
         const res = await request(app).post('/api/shorturl').type('form').send(URL);
+        const resHtml = res.text;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(resHtml, 'text/html');
+        const ogUrl = doc.getElementById('error');
         expect(res.status).toBe(200);
-        expect(res.body.message).toEqual(expectedMessage);
+        expect(ogUrl.innerHTML).toBe(expectedMessage);
     });
 
     test('If an error message return when url field is empty', async () => {
