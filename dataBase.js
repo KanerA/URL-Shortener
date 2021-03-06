@@ -64,7 +64,7 @@ class DB {
                         creationDate: value.creationDate,
                         redirectCount: value.redirectCount,
                         originalUrl: value.originalUrl,
-                        shortURL: `http://localhost:3000/api/${value.shortUrlId}`
+                        shortURL: `http://${req.get('host')}/api/${value.shortUrlId}`
                     }
                     res
                     .status(200)
