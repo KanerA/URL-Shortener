@@ -4,9 +4,10 @@ const statistics = require("./statistics");
 const DB = require('../dataBase');
 const { checkIdExist } = require('../utils');
 const { checkIdValid } = require('../utils');
+const express = require("express");
 
 const api = Router();
-
+api.use("/public", express.static(`../public`));
 api.use("/shorturl", shorturl);
 api.use("/statistics", statistics);
 api.get('/:id', checkIdValid, checkIdExist, DB.redirectUrl);
