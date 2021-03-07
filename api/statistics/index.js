@@ -1,8 +1,7 @@
 const { Router } = require("express");
-const DB = require('../../dataBase')
+const DB = require('../../dataBase');
 
 const statistics = Router();
-
 
 statistics.get("/:id", DB.getIdStatistics);
 
