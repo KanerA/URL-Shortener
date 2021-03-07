@@ -2,6 +2,7 @@ const fsPromises = require('fs').promises;
 const shortId = require('shortid');
 const dir = process.env.NODE_ENV === 'test' ? './test':'./data';
 const axios = require('axios').default
+const dbPORT = 3002;
 
 class DB {
     static urls = [];
@@ -17,7 +18,7 @@ class DB {
         try{
             await DB.readData();
             DB.urls.push(data);
-            await fsPromises.writeFile(`${dir}/data.json`, JSON.stringify(DB.urls, null, 4));
+            await axios.post('http://localhost:3002/v3/b', data);
             res
             .status(200)
             .render('shortUrl', { URL: `http://${req.get('host')}/api/${data.shortUrlId}`});
@@ -33,20 +34,18 @@ class DB {
         DB.urls.forEach(async (value) => {
             if(id === value.shortUrlId){
                 value.redirectCount++;
+                const binId = value.id;
+                await axios.put(`http://localhost:3002/v3/b/${binId}`, value);
                 res.status(302).redirect(value.originalUrl);
             }
         })
-        await fsPromises.writeFile(`${dir}/data.json`, JSON.stringify(DB.urls, null, 4));
     }
 
     // read all data and add new urls
     static async readData(){
         try{
-            await fsPromises.readFile(`${dir}/data.json`, 'utf-8')
-            .then((res) => {
-                const parsed = JSON.parse(res);
-                this.urls = parsed;
-            })
+            const res = await axios.get(`http://localhost:${dbPORT}/v3/b`);
+            DB.urls = res.data;
         } catch(e) {
             console.log(e);
         }
