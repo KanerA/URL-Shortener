@@ -9,7 +9,7 @@ class DB {
     // add the url given to the database
     static async addURL(req, res){
         const data = {
-            creationDate: Date.now(),
+            creationDate: (new Date()).toISOString().slice(0,19).replace('T',' '),
             redirectCount: 0,
             originalUrl: req.body.url,
             shortUrlId: shortId.generate()
